@@ -23,4 +23,4 @@ async def save(ctx):
     shutil.make_archive('a/test', 'zip', 'a')
     await ctx.send("added to database")
     
-client.run('NzUyMjUxMDU4OTA2MjAyMTQy.X1U6ZA.cIkHHcZIqAm-Xg3W_3DlOcTuvSA')
+client.run('botid')
