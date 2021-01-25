@@ -20,11 +20,11 @@ async def addcharacter(ctx):
     zf.extractall('public/singlecharacter')
     zf.close()
     if os.path.exists("newcharacter.zip"):
-    os.remove("newcharacter.zip")
+        os.remove("newcharacter.zip")
     else:
         pass
     if os.path.exists("public/characters.zip"):
-    os.remove("public/characters.zip")
+        os.remove("public/characters.zip")
     else:
         pass
     shutil.make_archive('public/characters', 'zip', 'public/singlecharacter')
@@ -38,11 +38,11 @@ async def addsound(ctx):
     zf.extractall('public/singlesound')
     zf.close()
     if os.path.exists("newsound.zip"):
-    os.remove("newsound.zip")
+        os.remove("newsound.zip")
     else:
         pass
     if os.path.exists("public/sounds.zip"):
-    os.remove("public/sounds.zip")
+        os.remove("public/sounds.zip")
     else:
         pass
     shutil.make_archive('public/sounds', 'zip', 'public/singlesound')
