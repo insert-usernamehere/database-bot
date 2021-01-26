@@ -13,9 +13,9 @@ client = commands.Bot(command_prefix='.')
 
 @client.command() 
 async def addcharacter(ctx):
+    await ctx.send("adding to database please wait")
     await ctx.message.attachments[0].save("newcharacter.zip")
                                          
-    await ctx.send("adding to database please wait")
     zf = ZipFile('newcharacter.zip', 'r')
     zf.extractall('public/singlecharacter')
     zf.close()
@@ -29,11 +29,13 @@ async def addcharacter(ctx):
         pass
     shutil.make_archive('public/characters', 'zip', 'public/singlecharacter')
     await ctx.send("added to database")
-    
+
+
+@client.command()     
 async def addsound(ctx):
+    await ctx.send("adding to database please wait")
     await ctx.message.attachments[0].save("newsound.zip")
                                          
-    await ctx.send("adding to database please wait")
     zf = ZipFile('newsound.zip', 'r')
     zf.extractall('public/singlesound')
     zf.close()
@@ -47,5 +49,12 @@ async def addsound(ctx):
         pass
     shutil.make_archive('public/sounds', 'zip', 'public/singlesound')
     await ctx.send("added to database")
+
+@client.command()     
+async def setip(ctx):
+    ip = userInput = ctx.message.content[7:]
+    with open("public/serverlist.txt", "w+") as hisc:
+        hisc.write(str(ip)+":best bois courthouse")
+    await ctx.send("changed ip to "+str(ip))
     
 client.run('botid')
