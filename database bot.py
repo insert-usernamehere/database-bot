@@ -24,41 +24,47 @@ client = commands.Bot(command_prefix='.')
 @client.command() 
 async def addcharacter(ctx):
     await ctx.send("adding to database please wait")
-    await ctx.message.attachments[0].save("newcharacter.zip")
+    try:
+        await ctx.message.attachments[0].save("newcharacter.zip")
                                          
-    zf = ZipFile('newcharacter.zip', 'r')
-    zf.extractall('public/singlecharacter')
-    zf.close()
-    if os.path.exists("newcharacter.zip"):
-        os.remove("newcharacter.zip")
-    else:
-        pass
-    if os.path.exists("public/characters.zip"):
-        os.remove("public/characters.zip")
-    else:
-        pass
-    shutil.make_archive('public/characters', 'zip', 'public/singlecharacter')
-    await ctx.send("added to database")
+        zf = ZipFile('newcharacter.zip', 'r')
+        zf.extractall('public/singlecharacter')
+        zf.close()
+        if os.path.exists("newcharacter.zip"):
+            os.remove("newcharacter.zip")
+        else:
+            pass
+        if os.path.exists("public/characters.zip"):
+            os.remove("public/characters.zip")
+        else:
+            pass
+        shutil.make_archive('public/characters', 'zip', 'public/singlecharacter')
+        await ctx.send("added to database")
+    except BaseException:
+        await ctx.send("something went wrong! this probably means you didn't attach a file or discord api is broken")
 
 
 @client.command()     
 async def addsound(ctx):
     await ctx.send("adding to database please wait")
-    await ctx.message.attachments[0].save("newsound.zip")
+    try:
+        await ctx.message.attachments[0].save("newsound.zip")
                                          
-    zf = ZipFile('newsound.zip', 'r')
-    zf.extractall('public/singlesound')
-    zf.close()
-    if os.path.exists("newsound.zip"):
-        os.remove("newsound.zip")
-    else:
-        pass
-    if os.path.exists("public/sounds.zip"):
-        os.remove("public/sounds.zip")
-    else:
-        pass
-    shutil.make_archive('public/sounds', 'zip', 'public/singlesound')
-    await ctx.send("added to database")
+        zf = ZipFile('newsound.zip', 'r')
+        zf.extractall('public/singlesound')
+        zf.close()
+        if os.path.exists("newsound.zip"):
+            os.remove("newsound.zip")
+        else:
+            pass
+        if os.path.exists("public/sounds.zip"):
+            os.remove("public/sounds.zip")
+        else:
+            pass
+        shutil.make_archive('public/sounds', 'zip', 'public/singlesound')
+        await ctx.send("added to database")
+    except BaseException:
+        await ctx.send("something went wrong! this probably means you didn't attach a file or discord api is broken")
 
 @client.command()     
 async def setip(ctx):
@@ -70,12 +76,14 @@ async def setip(ctx):
 @client.command()     
 async def getchrasset(ctx):
     weburl = ctx.message.content[13:]
-    await ctx.send("http://fierce-push.auto.playit.gg:53368/singlecharacter/"+str(weburl))
+    betterweburl = weburl.replace(" ", "%20")
+    await ctx.send("http://fierce-push.auto.playit.gg:53368/singlecharacter/"+str(betterweburl))
 
 @client.command()     
 async def getsound(ctx):
     sound = ctx.message.content[10:]
-    await ctx.send("http://fierce-push.auto.playit.gg:53368/singlesound/"+str(sound))
+    bettersound = sound.replace(" ", "%20")
+    await ctx.send("http://fierce-push.auto.playit.gg:53368/singlesound/"+str(bettersound))
 
 @client.command()     
 async def downloadcharacter(ctx):
