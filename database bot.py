@@ -40,7 +40,7 @@ async def addcharacter(ctx):
             pass
         shutil.make_archive('public/characters', 'zip', 'public/singlecharacter')
         await ctx.send("added to database")
-    except BaseException:
+    except Exception:
         await ctx.send("something went wrong! this probably means you didn't attach a file or discord api is broken")
 
 
@@ -63,7 +63,7 @@ async def addsound(ctx):
             pass
         shutil.make_archive('public/sounds', 'zip', 'public/singlesound')
         await ctx.send("added to database")
-    except BaseException:
+    except Exception:
         await ctx.send("something went wrong! this probably means you didn't attach a file or discord api is broken")
 
 @client.command()     
