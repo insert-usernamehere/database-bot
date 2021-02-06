@@ -9,6 +9,7 @@ from zipfile import ZipFile
 from pathlib import Path
 import shutil
 
+
 def closefile():
     sleep(300)
     if os.path.exists(finalfilepath):
@@ -76,14 +77,22 @@ async def setip(ctx):
 @client.command()     
 async def getchrasset(ctx):
     weburl = ctx.message.content[13:]
-    betterweburl = weburl.replace(" ", "%20")
-    await ctx.send("http://fierce-push.auto.playit.gg:53368/singlecharacter/"+str(betterweburl))
+    filedirweburl = weburl.replace("%20", " ")
+    if os.path.isfile('public/singlecharacter/'+str(filedirweburl)):
+        betterweburl = weburl.replace(" ", "%20")
+        await ctx.send("http://fierce-push.auto.playit.gg:53368/singlecharacter/"+str(betterweburl))
+    else:
+        await ctx.send("oops! that file does not exist make sure its spelled correctly")
 
 @client.command()     
 async def getsound(ctx):
     sound = ctx.message.content[10:]
-    bettersound = sound.replace(" ", "%20")
-    await ctx.send("http://fierce-push.auto.playit.gg:53368/singlesound/"+str(bettersound))
+    sounddirweb = sound.replace("%20", " ")
+    if os.path.isfile('public/singlesound/'+str(sounddirweb)):
+        bettersound = sound.replace(" ", "%20")
+        await ctx.send("http://fierce-push.auto.playit.gg:53368/singlesound/"+str(bettersound))
+    else:
+        await ctx.send("oops! that file does not exist make sure its spelled correctly")
 
 @client.command()     
 async def downloadcharacter(ctx):
@@ -107,7 +116,32 @@ async def downloadcharacter(ctx):
           else:
             pass
     else:
-        await ctx.send("sorry, but thats not a character in my database") 
+        await ctx.send("sorry, but thats not a character in my database")
+
+@client.command()
+async def listchr(ctx):
+    findchr = os.listdir('public/singlecharacter')
+    await ctx.send('```'+str(findchr)+'```')
+
+@client.command()
+async def listsound(ctx):
+    soutype = ctx.message.content[11:]
+    findsou1 = 'public/singlesound/'+str(soutype)
+    if os.path.isdir(findsou1):
+        findsou = os.listdir('public/singlesound/'+str(soutype))
+        soulenght = len(str(findsou))
+        if soulenght > 1990:
+            with open("public/soulist.txt", "w+") as souname:
+                souname.write(str(findsou))
+            await ctx.send(file=discord.File("public/soulist.txt"))  
+            if os.path.exists("public/soulist.txt"):
+                os.remove("public/soulist.txt")
+            else:
+                pass
+        else:
+            await ctx.send('```'+str(findsou)+'```')
+    else:
+        await ctx.send('thats not a sound option avalible options are "sound", and "general"')
 
     
 client.run('botid')
